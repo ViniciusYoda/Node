@@ -1,5 +1,5 @@
 import express from 'express'
-import handlebars from 'express-handlebars'
+import { engine } from 'express-handlebars'
 import Sequelize from 'sequelize'
 const sequelize = new Sequelize('sistemadecadastro', 'root', 'Hayashi11@4', {
     host: 'localhost',
@@ -16,8 +16,16 @@ const app = express()
 const port = 8081
 
 
-app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+app.engine('handlebars', engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+
+app.get('/cad', function(_req, res) {
+    res.render('formulario')
+})
+
+app.post('/add', (req, res) => {
+    res.send('Formulario recebido')
+})
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`)
